@@ -1,6 +1,5 @@
 # setup ----
 
-library(tidyverse)
 library(ggsci)
 library(cowplot)
 library(parallel)
@@ -8,6 +7,8 @@ library(Matrix)
 library(SingleCellExperiment)
 library(scater)
 library(MAST)
+library(tidyverse)
+
 
 setwd("/active/paper_shiny/")
 
@@ -106,7 +107,17 @@ tibble(orig = names(files)) %>%
     filter(padj < 0.01) %>%
     saveRDS(paste0("input/markers/cell_types/", n, ".rds"))
 }, mc.cores = detectCores()-2)
-
+ 
+# readRDS("input/markers/counts_per_gene/Th.rds") %>% 
+#   full_join(metadata_all_cells) %>%
+#   ggplot(aes(x = cell_type_public, 
+#              y = count)) +
+#   geom_violin(scale = "width") +
+#   theme_cowplot() +
+#   coord_flip() +
+#   labs(y = "Count") +
+#   theme(axis.title.y = element_blank())
+ 
 # create counts per gene for all cells
 # load matrix for all cells
 m <- readMM("input/setup/adata.mtx")

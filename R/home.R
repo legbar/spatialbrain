@@ -1,6 +1,17 @@
 home_UI <- function(id) {
   ns <- NS(id)
   tabPanel("Home",
+           tags$head(
+             # Note the wrapping of the string in HTML()
+             tags$style(HTML("
+      img {
+      border: 1;
+      max-width: 100%;
+    }
+    element.style {
+      width: 75%;
+    }"))
+           ),
            # sidebarLayout(
            #   position = "left",
            # titlePanel(h1("SpatialBrain", align = 'center')),
@@ -31,6 +42,11 @@ home_UI <- function(id) {
              column(4,
                     offset = 1,
                     # img(src="spatial.gif", align = "center",height='613px',width='800px')
+                    # imageOutput(ns("spatial"))
+                    # tags$head(tags$style(
+                    #   type="text/css",
+                    #   "#spatial img {max-width: 100%; width: 100%; height: auto}"
+                    # )),
                     # imageOutput(ns("spatial"))
                     HTML('<center><img src="spatial.gif", height="50%"></center>')
              )
@@ -94,12 +110,16 @@ home_SERVER <- function(id) {
     ns <- session$ns
     
     output$spatial <- renderImage({
-      path_to_png <- "www/spatial.gif"
+      path_to_png <- "input/startup/spatial.gif"
+      
+      # Get width and height of image output
+      width  <- session$clientData$output_image_width
+      height <- session$clientData$output_image_height
       
       list(src = path_to_png,
            contentType = "image/gif",
-           width = "100%",
-           height = "100%",
+           width = width,
+           height = height,
            alt = "Spatial Map Zooming")
       
     }, deleteFile = F)

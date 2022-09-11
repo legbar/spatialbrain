@@ -37,7 +37,7 @@ ui <- tagList(
       title = "Spatial Transcriptomics",
       "----",
       "All Cell Types",
-      markers_UI("markers"),
+      spatial_markers_UI("spatial_markers"),
       sn_vta_UI("sn_vta"),
       tabPanel("Ageing"),
       tabPanel("SNCA-OVX")
@@ -64,12 +64,14 @@ server <- function(input, output) {
 
   # Sys.sleep(3)
   
+  home_SERVER("home")
+  
   metadata_all_cells <- readRDS("input/startup/metadata_all_cells.rds")
   cell_type_names <- readRDS("input/startup/cell_type_names.rds")
   
   sn_vta_SERVER("sn_vta")
   
-  markers_SERVER("markers", metadata_all_cells, cell_type_names)
+  spatial_markers_SERVER("spatial_markers", metadata_all_cells, cell_type_names)
   
   trap_enrichment_SERVER("trap_enrichment")
   

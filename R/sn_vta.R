@@ -4,6 +4,8 @@ side_width <- 6
 sn_vta_UI <- function(id) {
   ns <- NS(id)
   tabPanel("SN/VTA Markers",
+           titlePanel(h1("SN/VTA Markers", align = 'left')),
+           br(),
            sidebarLayout(
              position = "left",
              sidebarPanel(
@@ -75,8 +77,8 @@ sn_vta_UI <- function(id) {
                width = 12 - side_width,
                wellPanel(plotOutput(ns("violin_plot"))),
                wellPanel(plotOutput(ns("spatial_plot"))),
-               h4(helpText("Debug")),
-               wellPanel(verbatimTextOutput(ns("debug")))
+               # h4(helpText("Debug")),
+               # wellPanel(verbatimTextOutput(ns("debug")))
              )
            ))
 }
@@ -141,8 +143,8 @@ sn_vta_SERVER <- function(id) {
             y = count,
             fill = region
           )) +
+          geom_jitter(width = 0.1, alpha = 0.2) +
           geom_violin() +
-          geom_jitter(width = 0.1) +
           scale_fill_d3() +
           scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
           theme_cowplot() +
@@ -185,7 +187,7 @@ sn_vta_SERVER <- function(id) {
       })
     })
     
-    output$debug <- renderPrint(sn_vta_vars$plot_data)
+    # output$debug <- renderPrint(sn_vta_vars$plot_data)
     
   })
 }
