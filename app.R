@@ -35,33 +35,30 @@ ui <- tagList(
     home_UI("home"),
     navbarMenu(
       title = "Spatial Transcriptomics",
-      "----",
-      "All Cell Types",
+      "Markers",
       spatial_markers_UI("spatial_markers"),
       sn_vta_UI("sn_vta"),
-      tabPanel("Ageing"),
-      tabPanel("SNCA-OVX")
+      "Ageing",
+      cell_type_numbers_age_UI("cell_type_numbers_age")
     ), 
     navbarMenu(
       title = "TRAP", 
-      "----", 
       "Gene-level", 
       trap_enrichment_UI("trap_enrichment"),
-      tabPanel("Dopaminergic Enrichment"), 
-      tabPanel("Dopaminergic Ageing"), 
+      ageing_TRAP_UI("ageing_TRAP"),
       "Transcript-level", 
-      tabPanel("Alternative Splicing in Dopaminergic Neurons")
+      # tabPanel("Alternative Splicing in Dopaminergic Neurons")
+      splicing_UI("splicing")
     ), 
-    gene_query_UI("gene_query"),
-    download_data_UI("download_data")
-
+    # gene_query_UI("gene_query"),
+    # download_data_UI("download_data")
   )
 )
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
   # waiter_show()
-
+  
   # Sys.sleep(3)
   
   home_SERVER("home")
@@ -73,7 +70,13 @@ server <- function(input, output) {
   
   spatial_markers_SERVER("spatial_markers", metadata_all_cells, cell_type_names)
   
+  cell_type_numbers_age_SERVER("cell_type_numbers_age", cell_type_names)
+  
   trap_enrichment_SERVER("trap_enrichment")
+  
+  ageing_TRAP_SERVER("ageing_TRAP")
+  
+  splicing_SERVER("splicing")
   
   waiter_hide()
   

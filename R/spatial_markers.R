@@ -4,19 +4,21 @@ spatial_markers_UI <- function(id) {
            titlePanel(h1("Spatial Markers", align = 'center')),
            br(),
            fluidRow(
-             column(width = 4,
-                    offset = 2,
+             column(width = 5,
+                    offset = 1,
                     align = "center",
                     # uiOutput(ns("spatial_plot_sized"))
                     plotOutput(ns("spatial_plot"), 
-                               height = "500px"
+                               # height = "500px"
                                # , width = "800px", height = "533px"
                                )
              ), 
-             column(width = 4, 
+             column(width = 5, 
                     # offset = 6, 
                     align = "center",
-                    plotOutput(ns("marker_violin_plot"), height = "500px")
+                    plotOutput(ns("marker_violin_plot"), 
+                               # height = "500px"
+                               )
                     )
            ),
            hr(),
@@ -27,13 +29,13 @@ spatial_markers_UI <- function(id) {
            # ),
            fluidRow(
              column(3,
-                    h4("Data description"),
-                    p("Description of the data and analysis methods"),
-                    tags$ul(
-                      tags$li("item 1"), 
-                      tags$li("item 2"),
-                      tags$li("item 3")
-                    ),
+                    # h4("Data description"),
+                    # p("Description of the data and analysis methods"),
+                    # tags$ul(
+                    #   tags$li("item 1"), 
+                    #   tags$li("item 2"),
+                    #   tags$li("item 3")
+                    # ),
                     style = 'border-right: 1px solid'
              ), 
              column(6, 
@@ -105,7 +107,10 @@ spatial_markers_SERVER <- function(id, metadata_all_cells, cell_type_names) {
     observeEvent(input$cell_type, {
       req(input$cell_type)
       markers_vars$marker_table <- readRDS(paste0("input/markers/cell_types/", input$cell_type, ".rds")) %>%
-        filter(lfc > 0)
+        arrange(desc(LFC))
+        # filter(lfc > 0) %>%
+        # mutate(across(where(is.numeric), ~ signif(.x, 3)))
+      markers_vars$selected_cell_type_public <- names(cell_type_names[cell_type_names == input$cell_type])
     })
     
     # Cell types TABLE
@@ -115,15 +120,16 @@ spatial_markers_SERVER <- function(id, metadata_all_cells, cell_type_names) {
       markers_vars$marker_table
     },
     selection = "single",
-    server = TRUE)
+    server = TRUE,
+    rownames = FALSE)
     
     observeEvent(c(input$spatial_markers_rows_selected, input$cell_type), {
       req(markers_vars$marker_table)
       if (is.null(input$spatial_markers_rows_selected)) {
-        markers_vars$selected_gene <- markers_vars$marker_table[1,] %>% pull(gene)
+        markers_vars$selected_gene <- markers_vars$marker_table[1,] %>% pull(Gene)
       } else {
         markers_vars$selected_gene <-
-          markers_vars$marker_table[input$spatial_markers_rows_selected, ]$gene
+          markers_vars$marker_table[input$spatial_markers_rows_selected, ]$Gene
       }
       markers_vars$counts <-
         readRDS(paste0(
@@ -225,9 +231,11 @@ spatial_markers_SERVER <- function(id, metadata_all_cells, cell_type_names) {
     
     # download the filtered data
     output$download_table = downloadHandler(
-      paste0('Spatial Markers - ', names(input$cell_type), '.csv'),
+      filename = function() {
+      paste0('Spatial Markers - ', markers_vars$selected_cell_type_public, '.csv')
+      },
       content = function(file) {
-        write_csv(arrange(markers_vars$marker_table, desc(lfc)), file)
+        write_csv(markers_vars$marker_table, file)
       }
     )
     

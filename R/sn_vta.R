@@ -127,13 +127,27 @@ sn_vta_SERVER <- function(id) {
     server = T)
     
     observeEvent(input$sn_vta_markers_rows_selected, {
+      req(sn_vta_vars$results)
+      if (is.null(input$sn_vta_markers_rows_selected)) {
+        sn_vta_vars$gene <- sn_vta_vars$results[1,] %>% pull(`Gene Symbol`)
+      } else {
+        sn_vta_vars$gene <-
+          sn_vta_vars$results[input$sn_vta_markers_rows_selected, ]$`Gene Symbol`
+      }
       
-      gene <- sn_vta_vars$results[input$sn_vta_markers_rows_selected,]$`Gene Symbol`
-      counts <- read_csv(paste0("input/sn_vta/da_counts_per_gene/", gene, ".csv"))
-      
-      sn_vta_vars$plot_data <- counts %>%
+      sn_vta_vars$counts <- read_csv(paste0("input/sn_vta/da_counts_per_gene/", sn_vta_vars$gene, ".csv"))
+      sn_vta_vars$plot_data <- sn_vta_vars$counts %>%
         inner_join(metadata)
-        # mutate(SCT_count = as.double(SCT_count))
+      
+    }, ignoreNULL = F)
+    
+    # observeEvent(input$sn_vta_markers_rows_selected, {
+    #   
+    #   sn_vta_vars$gene <- sn_vta_vars$results[input$sn_vta_markers_rows_selected,]$`Gene Symbol`
+    #   
+    #   # mutate(SCT_count = as.double(SCT_count))
+    #   
+    # })
       
       # SN_VTA VIOLIN PLOT
       output$violin_plot <- renderPlot({
@@ -151,9 +165,7 @@ sn_vta_SERVER <- function(id) {
           theme(legend.position = "none") +
           labs(x = "Region",
                y = "Count",
-               title = paste0(unique(
-                 sn_vta_vars$results_filtered[input$sn_vta_markers_rows_selected,]$`Gene Symbol`
-               )))
+               title = sn_vta_vars$gene)
       })
       
       # SN_VTA SPATIAL PLOT
@@ -183,9 +195,9 @@ sn_vta_SERVER <- function(id) {
             legend.position = "top"
           ) +
           panel_border() +
-          labs(colour = "Count above threshold")
+          labs(colour = "Count above threshold", 
+               title = sn_vta_vars$gene)
       })
-    })
     
     # output$debug <- renderPrint(sn_vta_vars$plot_data)
     

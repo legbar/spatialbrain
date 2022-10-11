@@ -1,13 +1,13 @@
-gene_query_UI <- function(id) {
+download_data_UI <- function(id) {
   ns <- NS(id)
-  tabPanel("Gene Query",
+  tabPanel("Download Data",
 
            titlePanel(h1("Welcome to SpatialBrain", align = 'center')),
            
   )
 }
 
-gene_query_SERVER <- function(id) {
+download_data_SERVER <- function(id) {
   moduleServer(id, function(input, output, session) {
     # namespace ----
     ns <- session$ns

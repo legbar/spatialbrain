@@ -12,18 +12,29 @@ trap_enrichment_UI <- function(id) {
            hr(),
            fluidRow(
              column(3,
-                    h4("Data description"),
-                    p("Description of the data and analysis methods"),
-                    tags$ul(
-                      tags$li("item 1"), 
-                      tags$li("item 2"),
-                      tags$li("item 3")
-                    ),
+                    # h4("Data description"),
+                    # p("Description of the data and analysis methods"),
+                    # tags$ul(
+                    #   tags$li("item 1"), 
+                    #   tags$li("item 2"),
+                    #   tags$li("item 3")
+                    # ),
                     style = 'border-right: 1px solid'
                     ), 
              column(6, 
                     h4("Select genes above to display information"),
                     DT::dataTableOutput(ns("enrichment_table")),
+                    
+                    ), 
+             column(3, 
+                    h4("Plot settings"), 
+                    checkboxInput(ns("show_unchanged"),
+                                  label = "Show Unchanged",
+                                  value = T),
+                    checkboxInput(ns("show_depleted"),
+                                  label = "Show Depleted",
+                                  value = T),
+                    p(tags$em("To reset your selection, double click within the plot area")),
                     br(),
                     p(class = 'text-center', downloadButton(
                       ns('download_table'), 'Download Selected Data'
@@ -35,17 +46,7 @@ trap_enrichment_UI <- function(id) {
                     # br(),
                     p(class = 'text-center', downloadButton(
                       ns('download_all_table'), 'Download All Data'
-                    ))
-                    ), 
-             column(3, 
-                    h4("Plot settings"), 
-                    checkboxInput(ns("show_unchanged"),
-                                  label = "Show Unchanged",
-                                  value = T),
-                    checkboxInput(ns("show_depleted"),
-                                  label = "Show Depleted",
-                                  value = T),
-                    p(tags$em("To reset your selection, double click within the plot area")),
+                    )),
                     style = 'border-left: 1px solid'
                     )
            ))

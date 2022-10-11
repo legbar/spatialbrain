@@ -35,8 +35,7 @@ home_UI <- function(id) {
                       tags$li(tags$strong("Dopaminergic Markers")),
                       tags$li(tags$strong("Dopaminergic Ageing")),
                       tags$li(tags$strong("Alternative Splicing in Dopaminergic Neurons")),
-                      
-                      tags$li(tags$strong("SN/VTA Markers in Dopaminergic Neurons"))
+
                     )
                     ), 
              column(4,
