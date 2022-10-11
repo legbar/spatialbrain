@@ -43,7 +43,7 @@ cell_type_numbers_age_UI <- function(id) {
                     style = 'border-right: 1px solid'
              ), 
              column(6, 
-                    h4("Select a cell type"),
+                    h4("Select a cell type to view its abundance across age groups"),
                     DT::dataTableOutput(ns("masc_table")),
                     # selectizeInput(ns("cell_type"),
                     #                label = "Select cell type",

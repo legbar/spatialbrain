@@ -2,7 +2,7 @@ gene_query_UI <- function(id) {
   ns <- NS(id)
   tabPanel("Gene Query",
 
-           titlePanel(h1("Welcome to SpatialBrain", align = 'center')),
+           titlePanel(h1("Gene Query", align = 'center')),
            
   )
 }

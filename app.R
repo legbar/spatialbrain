@@ -50,8 +50,8 @@ ui <- tagList(
       # tabPanel("Alternative Splicing in Dopaminergic Neurons")
       splicing_UI("splicing")
     ), 
-    # gene_query_UI("gene_query"),
-    # download_data_UI("download_data")
+    gene_query_UI("gene_query"),
+    download_data_UI("download_data")
   )
 )
 

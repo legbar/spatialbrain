@@ -2,7 +2,7 @@ download_data_UI <- function(id) {
   ns <- NS(id)
   tabPanel("Download Data",
 
-           titlePanel(h1("Welcome to SpatialBrain", align = 'center')),
+           titlePanel(h1("Download Data", align = 'center')),
            
   )
 }
