@@ -29,6 +29,13 @@ spatial_markers_UI <- function(id) {
            # ),
            fluidRow(
              column(3,
+                    h3(helpText("Select a cell type to view markers...")),
+                    hr(),
+                    selectizeInput(ns("cell_type"), 
+                                   label = "Select cell type", 
+                                   choices = NULL, 
+                                   width = "100%"),
+                    br(),
                     # h4("Data description"),
                     # p("Description of the data and analysis methods"),
                     # tags$ul(
@@ -43,13 +50,13 @@ spatial_markers_UI <- function(id) {
                     DT::dataTableOutput(ns("spatial_markers"))
              ), 
              column(3, 
-                    h3(helpText("Select a cell type to view markers...")),
-                    hr(),
-                    selectizeInput(ns("cell_type"), 
-                                   label = "Select cell type", 
-                                   choices = NULL, 
-                                   width = "100%"),
+                    h4("Definitions"),
+                    strong("LFC: "), span("The log2 fold-change in abundance between the cell type of interest and all other cells."),
                     br(),
+                    br(),
+                    strong("FDR-P "), span("The P value, adjusted for multiple comparisons (B&H)."),
+                    hr(),
+                    h4("Data Download"),
                     p(class = 'text-center', downloadButton(
                       ns('download_table'), 'Download Markers'
                     )),

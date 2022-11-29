@@ -1,86 +1,80 @@
-side_width <- 6
-
-# sample key sidepanel UI ----
 sn_vta_UI <- function(id) {
   ns <- NS(id)
   tabPanel("SN/VTA Markers",
            titlePanel(h1("SN/VTA Markers", align = 'left')),
            br(),
-           sidebarLayout(
-             position = "left",
-             sidebarPanel(
-               width = side_width,
-               h3(helpText("Click on a gene to view the spatial profile...")),
-               hr(),
-               DT::dataTableOutput(ns("sn_vta_markers")),
-               hr(),
-               br(),
-               # sliderTextInput(
-               #   ns("padj"),
-               #   label = "Filter Adj. P Value",
-               #   grid = TRUE, 
-               #   force_edges = TRUE, 
-               #   choices = c(0.0001, 
-               #               0.001, 
-               #               0.01, 
-               #               0.1), 
-               #   selected = 0.01
-               # ),
-               #   
-               # )
-               # numericInput(
-               #   ns("padj"),
-               #   label = "Filter Adj. P Value",
-               #   value = 0.01,
-               #   min = 0,
-               #   max = 1, 
-               #   width = '35%'
-               # ),
-               # hr(),
-               # br(),
-               # sliderTextInput(
-               #   ns("lfc"),
-               #   label = "Filter Absolute Log2 Fold-change",
-               #   grid = TRUE, 
-               #   force_edges = TRUE, 
-               #   choices = c(0, 1, 2, 3, 4, 5), 
-               #   selected = 0
-               # ),
-               # numericInput(
-               #   ns("lfc"),
-               #   label = "Filter Log2 Fold-change",
-               #   value = 0,
-               #   min = NA,
-               #   max = NA, 
-               #   width = '35%'
-               # ),
-               # hr(),
-               # br(),
-               sliderTextInput(
-                 ns("count_threshold"),
-                 label = "Count Display Threshold (Log2)",
-                 grid = TRUE, 
-                 force_edges = TRUE, 
-                 choices = c(0, 1, 2, 3, 4, 5, 6, 7, 8), 
-                 selected = 1
-               ),
-             #   numericInput(
-             #     ns("count_threshold"),
-             #     label = "Count Display Threshold (Log2)",
-             #     value = 0.5,
-             #     min = NA,
-             #     max = NA, 
-             #     width = '35%'
-             #   )
-             ),
-             mainPanel(
-               width = 12 - side_width,
-               wellPanel(plotOutput(ns("violin_plot"))),
-               wellPanel(plotOutput(ns("spatial_plot"))),
-               # h4(helpText("Debug")),
-               # wellPanel(verbatimTextOutput(ns("debug")))
+           fluidRow(
+             column(width = 5,
+                    offset = 1,
+                    align = "center",
+                    plotOutput(ns("violin_plot"), 
+                               height = "450px"
+                    )
+             ), 
+             column(width = 5, 
+                    align = "center",
+                    plotOutput(ns("spatial_plot"), 
+                               height = "450px"
+                    )
              )
-           ))
+           ),
+           hr(),
+           
+           fluidRow(
+             column(3,
+                    h4("Label cells above a threshold:"),
+                    br(),
+                    sliderTextInput(
+                      ns("count_threshold"),
+                      label = "Count Display Threshold (Log2)",
+                      grid = TRUE, 
+                      force_edges = TRUE, 
+                      choices = c(0, 1, 2, 3, 4, 5, 6, 7, 8), 
+                      selected = 5
+                    ),
+                    br(),
+                    # h4("Data description"),
+                    # p("Description of the data and analysis methods"),
+                    # tags$ul(
+                    #   tags$li("item 1"), 
+                    #   tags$li("item 2"),
+                    #   tags$li("item 3")
+                    # ),
+                    style = 'border-right: 1px solid'
+             ), 
+             column(6, 
+                    h4("Click on a gene to view the spatial profile..."),
+                    DT::dataTableOutput(ns("sn_vta_markers")),
+             ), 
+             column(3, 
+                    h4("Definitions"),
+                    strong("LFC: "), span("The log2 fold-change in abundance between the cell type of interest and all other cells."),
+                    br(),
+                    br(),
+                    strong("FDR-P "), span("The P value, adjusted for multiple comparisons (B&H)."),
+                    hr(),
+                    h4("Data Download"),
+                    p(class = 'text-center', downloadButton(
+                      ns('download_table'), 'Download Markers'
+                    )),
+                    p(class = 'text-center', downloadButton(
+                      ns('download_spatial_plot'), 'Download Spatial Plot'
+                    )),
+                    p(class = 'text-center', downloadButton(
+                      ns('download_marker_plot'), 'Download Marker Plot'
+                    )),
+                    # numericInput(ns('plot_size'), 
+                    #              label = "Plot size (pixels)",
+                    #              value = 800),
+                    # numericInput(ns('plot_height'), 
+                    #              label = "Plot height (pixels)",
+                    #              value = 400),
+                    # verbatimTextOutput(ns("debug")),
+                    style = 'border-left: 1px solid'
+             )
+           )
+           )
+           
 }
 
 # sn_vta server ----
@@ -101,11 +95,11 @@ sn_vta_SERVER <- function(id) {
     sn_vta_vars$results <- read_csv(
       "input/sn_vta/sn_vta_mast.csv",
       col_names = c("Gene Symbol",
-                    "Log2 Fold-change",
-                    "Adjusted P Value"),
+                    "LFC",
+                    "FDR-P"),
       skip = 1
     ) %>%
-      mutate(across(c(`Adjusted P Value`, `Log2 Fold-change`), ~ signif(.x, 3)))
+      mutate(across(c(`LFC`, `FDR-P`), ~ signif(.x, 3)))
     
     
     
@@ -183,7 +177,8 @@ sn_vta_SERVER <- function(id) {
           facet_wrap(vars(mouse_id_presentation_no_genotype),
                      scales = "free") +
           scale_y_reverse() +
-          scale_color_d3() +
+          # scale_color_d3() +
+          scale_color_manual(values = c("lightgrey", "red")) +
           scale_alpha_manual(values = c(0.25, 1), guide = "none") +
           theme_cowplot() +
           theme(
