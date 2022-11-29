@@ -21,7 +21,10 @@ splicing_UI <- function(id) {
     fluidRow(
       column(
         3,
-        h4("Definitions"),
+        h4(tags$i("Evidence for differential transcript usage was assessed using DRIMSeq on transcript-level counts derived from next-generation and long-read sequencing data of TRAP samples.")),
+        br(),
+        h4(helpText("Definitions")),
+        hr(),
         p(tags$b("TOTAL: "), "Bulk RNA from ventral midbrain"),
         p(tags$b("TRAP: "), "RNA from DAT-TRAP"),
         # tags$ul(tags$li("item 1"),
@@ -36,7 +39,7 @@ splicing_UI <- function(id) {
       ),
       column(
         3,
-        h4(helpText("Download...")),
+        h4(helpText("Download Data")),
         hr(),
         p(class = 'text-center', downloadButton(
           ns('download_table'), 'Download Splicing Table'

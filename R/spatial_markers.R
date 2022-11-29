@@ -51,12 +51,12 @@ spatial_markers_UI <- function(id) {
              ), 
              column(3, 
                     h4("Definitions"),
-                    strong("LFC: "), span("The log2 fold-change in abundance between the cell type of interest and all other cells."),
+                    strong("LFC: "), span("The log2 fold-change in abundance between the cell type of interest and all other cells"),
                     br(),
                     br(),
-                    strong("FDR-P "), span("The P value, adjusted for multiple comparisons (B&H)."),
+                    strong("FDR-P "), span("The P value, adjusted for multiple comparisons (B&H)"),
                     hr(),
-                    h4("Data Download"),
+                    h4("Download Data"),
                     p(class = 'text-center', downloadButton(
                       ns('download_table'), 'Download Markers'
                     )),

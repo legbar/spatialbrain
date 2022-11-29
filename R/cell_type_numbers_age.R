@@ -33,13 +33,15 @@ cell_type_numbers_age_UI <- function(id) {
            hr(),
            fluidRow(
              column(3,
-                    # h4("Data description"),
-                    # p("Description of the data and analysis methods"),
-                    # tags$ul(
-                    #   tags$li("item 1"), 
-                    #   tags$li("item 2"),
-                    #   tags$li("item 3")
-                    # ),
+                    h4(tags$i("Testing for age-related changes in cell type abundance was performed using MASC in Stereo-Seq samples")),
+                    br(),
+                    h4(helpText("Definitions")),
+                    hr(),
+                    p(tags$b("YOUNG: "), "Mice aged 3-6 months"),
+                    p(tags$b("OLD: "), "Mice aged 18-22 months"),
+                    p(tags$b("FDR-P: "), "The P value, adjusted for multiple comparisons (B&H)"),
+                    p(tags$b("Estimate: "), "Odds ratio for abundance change in aged brains. Positive values indicate an increase in abundance"),
+                    
                     style = 'border-right: 1px solid'
              ), 
              column(6, 

@@ -20,6 +20,22 @@ trap_enrichment_UI <- function(id) {
                     #   tags$li("item 2"),
                     #   tags$li("item 3")
                     # ),
+                    h4(helpText("Plot settings")),
+                    hr(),
+                    checkboxInput(ns("show_unchanged"),
+                                  label = "Show Unchanged",
+                                  value = T),
+                    checkboxInput(ns("show_depleted"),
+                                  label = "Show Depleted",
+                                  value = T),
+                    # p(tags$em("To reset your selection, double click within the plot area")),
+                    br(),
+                    h4(helpText("Definitions")),
+                    hr(),
+                    p(tags$b("LFC: "), "The log2 fold-change in abundance in TRAP samples, compared to TOTAL"),
+                    p(tags$b("FDR-P: "), "The P value, adjusted for multiple comparisons (B&H)"),
+                    p(tags$b("TOTAL: "), "Bulk RNA from ventral midbrain"),
+                    p(tags$b("TRAP: "), "RNA from DAT-TRAP"),
                     style = 'border-right: 1px solid'
                     ), 
              column(6, 
@@ -28,15 +44,8 @@ trap_enrichment_UI <- function(id) {
                     
                     ), 
              column(3, 
-                    h4("Plot settings"), 
-                    checkboxInput(ns("show_unchanged"),
-                                  label = "Show Unchanged",
-                                  value = T),
-                    checkboxInput(ns("show_depleted"),
-                                  label = "Show Depleted",
-                                  value = T),
-                    p(tags$em("To reset your selection, double click within the plot area")),
-                    br(),
+                    h4(helpText("Download Data")),
+                    hr(),
                     p(class = 'text-center', downloadButton(
                       ns('download_table'), 'Download Selected Data'
                     )),
@@ -92,7 +101,10 @@ trap_enrichment_SERVER <- function(id) {
     # Genes TABLE
     output$enrichment_table <- DT::renderDataTable({
       # if (is.null(event_data("plotly_selected")$customdata)) {
-      MB_FRACTION_META
+      MB_FRACTION_META %>%
+        select(Gene,
+               "LFC" = `Log2 Fold Enrichment`,
+               `FDR-P`)
       # } else {
       # MB_FRACTION_META[MB_FRACTION_META$Gene %in% event_data("plotly_selected")$customdata, ]
       # }

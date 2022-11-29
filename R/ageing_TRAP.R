@@ -21,12 +21,16 @@ ageing_TRAP_UI <- function(id) {
     fluidRow(
       column(
         3,
-        h4("Definitions"),
+        h4(tags$i("Testing for age-related differential expression was performed using DESeq2 on gene-level counts derived from TRAP samples.")),
+        br(),
+        h4(helpText("Definitions")),
+        hr(),
         p(tags$b("TOTAL: "), "Bulk RNA from ventral midbrain"),
         p(tags$b("TRAP: "), "RNA from DAT-TRAP"),
-        # tags$ul(tags$li("item 1"),
-        #         tags$li("item 2"),
-        #         tags$li("item 3")),
+        p(tags$b("YOUNG: "), "Mice aged 3-6 months"),
+        p(tags$b("OLD: "), "Mice aged 18-22 months"),
+        p(tags$b("LFC: "), "The log2 fold-change in abundance in aged samples, compared to young"),
+        p(tags$b("FDR-P: "), "The P value, adjusted for multiple comparisons (B&H)"),
         style = 'border-right: 1px solid'
       ),
       column(
@@ -36,7 +40,7 @@ ageing_TRAP_UI <- function(id) {
       ),
       column(
         3,
-        h4(helpText("Download...")),
+        h4(helpText("Download Data")),
         hr(),
         p(class = 'text-center', downloadButton(
           ns('download_table'), 'Download Ageing Results Table'

@@ -25,7 +25,7 @@ home_UI <- function(id) {
                     h3("A platform to view integrated data from the Wade-Martins Laboratory of Molecular Neurodegeneration."),
                     
                     br(),
-                    h4("Results and data from Kilfeather, Khoo, et al. 2022:"),
+                    h4(tags$i("Results and data from Kilfeather, Khoo, et al. 2022 (Manuscript in review):")),
                     # br(),
                     h5("Spatial Transcriptomic Analyses:"), 
                     tags$ul(
@@ -41,7 +41,7 @@ home_UI <- function(id) {
                       tags$li(tags$strong("Alternative Splicing in Dopaminergic Neurons")),
                     ), 
                     br(),
-                    tags$i(h5("Coming soon: Integration with iPS-derived Dopaminergic transcriptomic datasets.")),
+                    tags$i(h5("Coming soon: Integration with iPS-derived dopaminergic transcriptomic datasets.")),
                     br(),
                     imageOutput(ns("opdc"))
                     ), 

@@ -48,7 +48,7 @@ sn_vta_UI <- function(id) {
              ), 
              column(3, 
                     h4("Definitions"),
-                    strong("LFC: "), span("The log2 fold-change in abundance between the cell type of interest and all other cells."),
+                    strong("LFC: "), span("The log2 fold-change in abundance between the substantia nigra and ventral tegmental area. Positive values indicate enrichment within the substantia nigra."),
                     br(),
                     br(),
                     strong("FDR-P "), span("The P value, adjusted for multiple comparisons (B&H)."),
