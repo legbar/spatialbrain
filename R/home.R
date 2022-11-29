@@ -59,7 +59,7 @@ home_UI <- function(id) {
                     br(),
                     h3("Download our Poster:"),
                     br(),
-                    tags$a(imageOutput(ns("poster")), href = "https://www.google.com")
+                    tags$a(imageOutput(ns("poster")), href = "https://spatialbrain.s3.eu-west-2.amazonaws.com/POSTER_72ppi.png")
                     
                     
                     # br(),
