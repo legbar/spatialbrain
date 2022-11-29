@@ -19,9 +19,11 @@ home_UI <- function(id) {
            fluidRow(
              column(4,
                     offset = 1,
+                    # verbatimTextOutput(ns("debug")),
                     h1("Welcome to SpatialBrain"),
                     hr(),
-                    h4("Results and data from Kilfeather, Khoo, et al. 2022"),
+                    h3("A platform to view integrated data from the Wade-Martins Laboratory of Molecular Neurodegeneration."),
+                    # h4("Results and data from Kilfeather, Khoo, et al. 2022"),
                     br(),
                     h4("Spatial Transcriptomic Analyses:"), 
                     tags$ul(
@@ -36,7 +38,9 @@ home_UI <- function(id) {
                       tags$li(tags$strong("Dopaminergic Ageing")),
                       tags$li(tags$strong("Alternative Splicing in Dopaminergic Neurons")),
 
-                    )
+                    ), 
+                    br(),
+                    imageOutput(ns("opdc"))
                     ), 
              column(4,
                     offset = 1,
@@ -47,7 +51,17 @@ home_UI <- function(id) {
                     #   "#spatial img {max-width: 100%; width: 100%; height: auto}"
                     # )),
                     # imageOutput(ns("spatial"))
-                    HTML('<center><img src="spatial.gif", height="50%"></center>')
+                    HTML('<center><img src="spatial.gif", height="50%"></center>'),
+                    br(),
+                    br(),
+                    h3("Download our Poster:"),
+                    br(),
+                    imageOutput(ns("poster"))
+                    
+                    
+                    # br(),
+                    # br(),
+                    
              )
            ),
            # sidebarLayout(
@@ -123,6 +137,36 @@ home_SERVER <- function(id) {
       
     }, deleteFile = F)
     
+    output$opdc <- renderImage({
+      path_to_jpg <- "input/images/opdc-logo_downsized.jpg"
+      # Get width and height of image output
+      width  <- session$clientData$output_image_width
+      height <- session$clientData$output_image_height
+      
+      list(src = path_to_jpg,
+           contentType = "image/jpeg",
+           width = width,
+           # height = width * (1000/372),
+           # height = 100,
+           height = height,
+           alt = "OPDC Logo")
+      
+    }, deleteFile = F)
     
+    output$poster <- renderImage({
+      path_to_jpg <- "input/images/POSTER_small.jpg"
+      # Get width and height of image output
+      width  <- session$clientData$output_image_width
+      height <- session$clientData$output_image_height
+      
+      list(src = path_to_jpg,
+           contentType = "image/jpeg",
+           width = width,
+           height = height,
+           alt = "Kilfeather Poster")
+      
+    }, deleteFile = F)
+    
+    # output$debug <- renderPrint(session$clientData$output_image_height)
   })
 }
