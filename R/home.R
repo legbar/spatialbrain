@@ -23,22 +23,25 @@ home_UI <- function(id) {
                     h1("Welcome to SpatialBrain"),
                     hr(),
                     h3("A platform to view integrated data from the Wade-Martins Laboratory of Molecular Neurodegeneration."),
-                    # h4("Results and data from Kilfeather, Khoo, et al. 2022"),
+                    
                     br(),
-                    h4("Spatial Transcriptomic Analyses:"), 
+                    h4("Results and data from Kilfeather, Khoo, et al. 2022:"),
+                    # br(),
+                    h5("Spatial Transcriptomic Analyses:"), 
                     tags$ul(
                       tags$li(tags$strong("Cell Type Markers")),
                       tags$li(tags$strong("SN/VTA Markers in Dopaminergic Neurons")),
                       tags$li(tags$strong("Cell Number Changes in Age")),
                     ),
                     br(),
-                    h4("TRAP Analyses:"), 
+                    h5("TRAP Analyses:"), 
                     tags$ul(
                       tags$li(tags$strong("Dopaminergic Markers")),
                       tags$li(tags$strong("Dopaminergic Ageing")),
                       tags$li(tags$strong("Alternative Splicing in Dopaminergic Neurons")),
-
                     ), 
+                    br(),
+                    tags$i(h5("Coming soon: Integration with iPS-derived Dopaminergic transcriptomic datasets.")),
                     br(),
                     imageOutput(ns("opdc"))
                     ), 
@@ -56,7 +59,7 @@ home_UI <- function(id) {
                     br(),
                     h3("Download our Poster:"),
                     br(),
-                    imageOutput(ns("poster"))
+                    tags$a(imageOutput(ns("poster")), href = "https://www.google.com")
                     
                     
                     # br(),
