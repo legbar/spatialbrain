@@ -19,6 +19,13 @@ url <- "https://i.postimg.cc/FHshdD0G/spatial-full-1920.jpg"
 ui <- tagList(
   # shinythemes::themeSelector(),
   navbarPage(
+    tags$head(# Note the wrapping of the string in HTML()
+      tags$style(
+        HTML("
+      table.dataTable tbody tr.selected {
+  pointer-events: none
+}")
+      )),
     title = "SpatialBrain",
     selected = "Home",
     theme = shinytheme("flatly"),
