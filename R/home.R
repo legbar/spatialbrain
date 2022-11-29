@@ -21,7 +21,7 @@ home_UI <- function(id) {
                     offset = 1,
                     h1("Welcome to SpatialBrain"),
                     hr(),
-                    h4("Results and data from Kilfeather, Hui Khoo, et al. 2022"),
+                    h4("Results and data from Kilfeather, Khoo, et al. 2022"),
                     br(),
                     h4("Spatial Transcriptomic Analyses:"), 
                     tags$ul(

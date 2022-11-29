@@ -9,7 +9,7 @@ spatial_markers_UI <- function(id) {
                     align = "center",
                     # uiOutput(ns("spatial_plot_sized"))
                     plotOutput(ns("spatial_plot"), 
-                               # height = "500px"
+                               height = "600px"
                                # , width = "800px", height = "533px"
                                )
              ), 
@@ -17,7 +17,7 @@ spatial_markers_UI <- function(id) {
                     # offset = 6, 
                     align = "center",
                     plotOutput(ns("marker_violin_plot"), 
-                               # height = "500px"
+                               height = "600px"
                                )
                     )
            ),
