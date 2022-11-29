@@ -20,6 +20,7 @@ ui <- tagList(
   # shinythemes::themeSelector(),
   navbarPage(
     tags$head(# Note the wrapping of the string in HTML()
+      includeHTML(("google-analytics.html")),
       tags$style(
         HTML("
       table.dataTable tbody tr.selected {
