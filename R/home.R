@@ -25,7 +25,7 @@ home_UI <- function(id) {
                     h3("A platform to view integrated data from the Wade-Martins Laboratory of Molecular Neurodegeneration."),
                     
                     br(),
-                    h4(tags$i("Results and data from Kilfeather, Khoo, et al. 2022 (Manuscript in review):")),
+                    h4(tags$i("Results and data from Kilfeather, Khoo, et al. 2023 (Manuscript in review):")),
                     # br(),
                     h5("Spatial Transcriptomic Analyses:"), 
                     tags$ul(
