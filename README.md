@@ -3,4 +3,4 @@
 - [***spatialbrain.org***](https://spatialbrain.org): A repository of results from analyses of Stereo-seq and TRAP investigations into gene expression in mouse brain.
 
 ## Navigation
-Code is currently being pushed to this repository, so check back shortly for updates. Please feel free to raise an issue for questions.
+Code relating to the analyses in our manuscripts can be found in the `scripts` directory.
