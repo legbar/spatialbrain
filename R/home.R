@@ -25,8 +25,9 @@ home_UI <- function(id) {
                     h3("A platform to view integrated data from the Wade-Martins Laboratory of Molecular Neurodegeneration."),
                     
                     br(),
-                    h4(tags$i("Results and data from Kilfeather, Khoo, et al. 2023 (Manuscript in review):")),
-                    # br(),
+                    h4(tags$i("Results and data from:")),
+                    h4(tags$a(href="https://pubmed.ncbi.nlm.nih.gov/38386560/", tags$strong("Kilfeather P, Khoo JH, Wade-Martins R. Single-cell spatial transcriptomic and translatomic profiling of dopaminergic neurons in health, aging, and disease."), tags$i(" Cell Rep. 2024 Mar 26;43(3):113784. doi: 10.1016/j.celrep.2024.113784. Epub 2024 Feb 21. PMID: 38386560."))),
+                    br(),
                     h5("Spatial Transcriptomic Analyses:"), 
                     tags$ul(
                       tags$li(tags$strong("Cell Type Markers")),
@@ -41,7 +42,7 @@ home_UI <- function(id) {
                       tags$li(tags$strong("Alternative Splicing in Dopaminergic Neurons")),
                     ), 
                     br(),
-                    tags$i(h5("Coming soon: Integration with iPS-derived dopaminergic transcriptomic datasets.")),
+                    # tags$i(h5("Coming soon: Integration with iPS-derived dopaminergic transcriptomic datasets.")),
                     br(),
                     imageOutput(ns("opdc"))
                     ), 

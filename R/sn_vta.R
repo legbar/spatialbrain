@@ -102,7 +102,6 @@ sn_vta_SERVER <- function(id) {
       mutate(across(c(`LFC`, `FDR-P`), ~ signif(.x, 3)))
     
     
-    
     # observeEvent(c(input$lfc, input$padj),
     #              {
     #                sn_vta_vars$results_filtered <- results %>%
@@ -128,13 +127,13 @@ sn_vta_SERVER <- function(id) {
         sn_vta_vars$gene <-
           sn_vta_vars$results[input$sn_vta_markers_rows_selected, ]$`Gene Symbol`
       }
-      
+
       sn_vta_vars$counts <- read_csv(paste0("input/sn_vta/da_counts_per_gene/", sn_vta_vars$gene, ".csv"))
       sn_vta_vars$plot_data <- sn_vta_vars$counts %>%
         inner_join(metadata)
-      
+
     }, ignoreNULL = F)
-    
+
     # observeEvent(input$sn_vta_markers_rows_selected, {
     #   
     #   sn_vta_vars$gene <- sn_vta_vars$results[input$sn_vta_markers_rows_selected,]$`Gene Symbol`
